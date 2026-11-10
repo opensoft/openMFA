@@ -9,12 +9,20 @@ found an existing-worktree resume bypass, reproduced by three origin-refusal
 fixtures. Shared-source PR #312 verifies origin before that shortcut and
 supersedes the earlier local resume correction. The consumer copies exact
 source bytes recorded in [shared-park-source.md](shared-park-source.md).
-The current suite has **18** cases: seven prior tooling cases plus eleven
+Subsequent review at 819195462ea10a21dc535b380f538148e13252f7 found that
+unchanged-content retry skipped a pending manifest commit. Shared PR #313
+separates commit creation from publication and refuses exhausted push attempts.
+Two fixtures reproduced unsuccessful publication being reported as success
+before correction.
+
+The current suite has **20** cases: seven prior tooling cases plus thirteen
 shared handoff cases, including a real injected peer-push retry, three changed
-or unverifiable-origin refusals and unchanged-origin repeat resume.
-All 18 passed locally in 24.79 seconds. All consumer Bash files passed syntax
-validation, the four shared dependencies and fixture copy compared exactly,
-and `make validate` passed with both leg pins and all 11 shape digests unchanged.
+or unverifiable-origin refusals, unchanged-origin repeat resume and pending
+publication retry/refusal. The earlier 18-case snapshot passed locally and
+in CI; all 20 current cases passed locally in 36.44 seconds. All consumer
+Bash files passed syntax validation, the four shared dependencies and fixture
+copy compared exactly, and `make validate` passed with both leg pins and all 11
+shape digests unchanged.
 Full park retains its
 existing gone-feature reconciliation. The real operator workspace was not
 used. Current validation results are recorded with the PR; consumer CI and a
