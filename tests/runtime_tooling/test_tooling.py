@@ -50,6 +50,10 @@ def copy_scripts(repo,folder,names):
 def test_core_spec_creation_preserves_the_paired_worktree_and_selector(tmp_path,selection):
     repo=init(tmp_path/"assembly with spaces")
     copy_scripts(repo,CORE,["common.sh","create-new-feature.sh","setup-plan.sh"])
+    copy_scripts(repo,EXT,["git-common.sh"])
+    (repo/"project.yaml").write_text(
+        "kind: project-manifest\nschema: project-repo-schema\nlegs:\n"
+        "  - role: spec\n    path: spec\n  - role: code\n    path: code\n")
     templates=repo/".specify/templates"
     templates.mkdir()
     (templates/"spec-template.md").write_text("# fixture spec\n")
@@ -86,16 +90,27 @@ def test_core_spec_creation_preserves_the_paired_worktree_and_selector(tmp_path,
     assert git(paired,"status","--porcelain").startswith("?? specs/")
 
 
-def test_unselected_single_repository_still_creates_a_new_feature(tmp_path):
+@pytest.mark.parametrize("has_history",[False,True])
+def test_unselected_single_repository_still_creates_a_new_feature(tmp_path,has_history):
     repo=init(tmp_path/"single")
     copy_scripts(repo,CORE,["common.sh","create-new-feature.sh"])
+    copy_scripts(repo,EXT,["git-common.sh"])
     templates=repo/".specify/templates"
     templates.mkdir()
     (templates/"spec-template.md").write_text("# fixture spec\n")
+    if has_history:
+        previous=repo/"specs/001-earlier"
+        previous.mkdir(parents=True)
+        (previous/"spec.md").write_text("preserve earlier spec")
+        (repo/".specify/feature.json").write_text(
+            json.dumps({"feature_directory":"specs/001-earlier"}))
     result=run(repo,"bash",str(CORE/"create-new-feature.sh"),"--json",
                "--short-name","new-feature","Create a fresh feature")
-    assert json.loads(result.stdout)["BRANCH_NAME"]=="001-new-feature"
-    assert (repo/"specs/001-new-feature/spec.md").is_file()
+    expected="002-new-feature" if has_history else "001-new-feature"
+    assert json.loads(result.stdout)["BRANCH_NAME"]==expected
+    assert (repo/"specs"/expected/"spec.md").is_file()
+    if has_history:
+        assert (previous/"spec.md").read_text()=="preserve earlier spec"
 
 
 @pytest.mark.parametrize("remote_state",["deleted","unavailable","present"])

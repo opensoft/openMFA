@@ -7,9 +7,10 @@ identified paired-selector loss in core creation (P1) and stale-ref use after
 a failed resume fetch (P2). The isolated regression suite reproduced four
 failures before the fixes, with the successful-origin control passing.
 
-After the declared local corrections, all six regression cases passed:
+After the declared local corrections, all seven regression cases passed:
 environment and selector placement (including dry run and follow-on plan),
-unselected single-repo creation, and present/deleted/unavailable origin states.
+unselected single-repo creation with and without a previous selector, and
+present/deleted/unavailable origin states.
 Tests create disposable repositories and bare local origins only. They never
 read or write the operator's workspace manifest or production Git remotes.
 The state fixtures preserve their manifest and refuse cached refs after a

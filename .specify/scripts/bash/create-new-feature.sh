@@ -130,7 +130,16 @@ cd "$REPO_ROOT"
 SPECS_DIR="$REPO_ROOT/specs"
 SELECTED_FEATURE_DIR=""
 SELECTED_FEATURE_BRANCH=""
-if [ -n "${SPECIFY_FEATURE_DIRECTORY:-}" ] || [ -f "$REPO_ROOT/.specify/feature.json" ]; then
+PAIRED_SELECTOR=false
+shape_helper="$REPO_ROOT/.specify/extensions/git/scripts/bash/git-common.sh"
+if [ -f "$REPO_ROOT/.specify/feature.json" ] && [ -f "$shape_helper" ]; then
+    if (source "$shape_helper"; load_repo_shape "$REPO_ROOT"; [ "$REPO_SHAPE" = "three-leg" ]); then
+        PAIRED_SELECTOR=true
+    fi
+fi
+# An explicit directory always wins. An implicit selector is reused only by
+# the paired hook; ordinary single-repo creation still allocates a new spec.
+if [ -n "${SPECIFY_FEATURE_DIRECTORY:-}" ] || [ "$PAIRED_SELECTOR" = true ]; then
     selected_paths=$(get_feature_paths --no-persist) || exit 1
     eval "$selected_paths"
     SELECTED_FEATURE_DIR="$FEATURE_DIR"
