@@ -4,12 +4,21 @@
 
 The two subsequent park blockers are fixed in shared-source PRs #310/#311
 under `fix-park-handoff-integrity`, with separate constitution-compliant
-task sets. The consumer copies exact source bytes recorded in
-[shared-park-source.md](shared-park-source.md). All **14** current consumer
-tests passed locally: seven prior tooling cases plus seven shared handoff
-cases, including a real injected peer-push retry. Full park retains its
+task sets. Fresh Codex review at fc96c4d3e9778b471a3a04f963f6133f399597b2
+found an existing-worktree resume bypass, reproduced by three origin-refusal
+fixtures. Shared-source PR #312 verifies origin before that shortcut and
+supersedes the earlier local resume correction. The consumer copies exact
+source bytes recorded in [shared-park-source.md](shared-park-source.md).
+The current suite has **18** cases: seven prior tooling cases plus eleven
+shared handoff cases, including a real injected peer-push retry, three changed
+or unverifiable-origin refusals and unchanged-origin repeat resume.
+All 18 passed locally in 24.79 seconds. All consumer Bash files passed syntax
+validation, the four shared dependencies and fixture copy compared exactly,
+and `make validate` passed with both leg pins and all 11 shape digests unchanged.
+Full park retains its
 existing gone-feature reconciliation. The real operator workspace was not
-used. Consumer CI and a fresh exact-head Codex request accompany this update;
+used. Current validation results are recorded with the PR; consumer CI and a
+fresh exact-head Codex request accompany this update;
 source/consumer PR results and upstream landing are distinct gates.
 
 ## Earlier creation/resume correction evidence
