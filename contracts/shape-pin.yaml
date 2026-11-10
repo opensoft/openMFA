@@ -1,0 +1,64 @@
+schema_version: 1
+kind: pinned_contract_manifest
+
+# ===========================================================================
+# shape-pin.yaml — the openRepoShape revision this project was cut from.
+#
+# A COPY PIN, NOT A SUBMODULE PIN, and the difference is deliberate.
+# openRepoShape is not mounted here: the scaffold COPIED a small set of files
+# out of it — the naming policy, the shared library, the three validators, the
+# bootstrap, the Makefile and the pull-request workflow — so that a project in
+# an organisation that never obtains the upstream is still self-contained and
+# still runs its own gate. There is therefore no gitlink to compare, and the
+# identity of what was copied is carried by the per-file `sha256` rows below.
+# That is exactly the half of the family's pin grammar that exists for
+# artifacts a consumer HOLDS rather than MOUNTS; `commit` and
+# `digests.tree_sha256` record the upstream revision those bytes came from, so
+# a later reader can say which openRepoShape this project is a copy of.
+#
+# EDITING A COPIED FILE IS DRIFT AND IS REPORTED AS SUCH.
+# `scripts/validate-pins.py` recomputes every `sha256` below on every pull
+# request. The exit from a drift finding is to carry the change UPSTREAM to
+# openRepoShape and re-scaffold or re-pin — not to update the digest in place,
+# which would record the fork as the standard.
+# ===========================================================================
+
+pin_role: shape
+source_repository: opensoft/openRepoShape
+materialization: copied
+
+commit: "24769920611b214ea7426c51a220b324602c0861"
+revision_kind: commit
+
+digest_algorithm: sha256
+digest_definition: sorted-ls-tree-r-v1
+digests:
+  tree_sha256: "c8f5bdaba81999f5211b98367d298109c7129732f8b30ee5e8bc53de0719ddcd"
+
+verify_pin: scripts/validate-pins.py
+
+# The copies that live in THIS repository, each with the sha256 of its bytes
+# as written by the scaffold. Written by `scaffold-project.py`; do not hand-edit.
+files:
+  - path: scripts/validate-pins.py
+    sha256: "50f1308c1b4dc14924dda7a28e228f58931e22318b76c27e61b8a589945ba54e"
+  - path: scripts/validate-manifest.py
+    sha256: "909125e11a32659b840ec365d5b2ba53d19e28d0bfe73c4cbbdd47603e73267a"
+  - path: scripts/bootstrap.py
+    sha256: "2df637b63e2f47043404e1723db3d0a535e20f3fde4f5a9a5d418779695fbcd6"
+  - path: Makefile
+    sha256: "470a44ea104d1fcd00cff06e56a68cac61a42dad6f91c8f60f513961bd98d8c6"
+  - path: .gitignore
+    sha256: "00256b4fddd74373bd31f7726469936deee31f171515a2e0e1b2364a5c543223"
+  - path: .gitattributes
+    sha256: "e2b88cf25928c5a58bb2acaae1779d934c262273db708d0aa6dfb01591b15baa"
+  - path: .github/workflows/validate.yml
+    sha256: "fb8c0360863ad953af7825f3be01ed27f8cf1269e5cab19dc0d6c5423161b487"
+  - path: AGENTS-shape.md
+    sha256: "44a35334aad57aff4fe93cb00cc36b2274ab73afcd969b94b357a7f119bf1570"
+  - path: scripts/repo_shape.py
+    sha256: "350956afa95822781cd5af81903d9c470ae9c047982c6868577e823122852a78"
+  - path: scripts/validate-repository-naming.py
+    sha256: "d49ea8ee51516fd8e7e299331360bec8905882e2b7af6881fd2db54af28f152c"
+  - path: contracts/repository-naming.yaml
+    sha256: "a4eebad21541cbfe9a3e94a0ee667a2d5a7866c3567eea2a000d8339f6f096a4"
