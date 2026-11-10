@@ -15,11 +15,18 @@ separates commit creation from publication and refuses exhausted push attempts.
 Two fixtures reproduced unsuccessful publication being reported as success
 before correction.
 
-The current suite has **20** cases: seven prior tooling cases plus thirteen
+Review at 7ab6ea004ea3df3a7437b9dbd6395a45dfaf0ca8 found stale
+receiving-workspace reads. Shared PR #315 refreshes under the mutex before
+manifest loading and safely refuses dirty, conflicting or unavailable
+refreshes. Four checks failed before correction; the unchanged dry-run
+control passed.
+
+The current suite has **25** cases: seven prior tooling cases plus eighteen
 shared handoff cases, including a real injected peer-push retry, three changed
 or unverifiable-origin refusals, unchanged-origin repeat resume and pending
-publication retry/refusal. The earlier 18-case snapshot passed locally and
-in CI; all 20 current cases passed locally in 36.44 seconds. All consumer
+publication retry/refusal, and five receiving-workspace refresh cases.
+The earlier 20-case snapshot passed locally and in CI. All 25 current cases
+passed locally in 40.33 seconds. All consumer
 Bash files passed syntax validation, the four shared dependencies and fixture
 copy compared exactly, and `make validate` passed with both leg pins and all 11
 shape digests unchanged.

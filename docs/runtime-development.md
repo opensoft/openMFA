@@ -29,14 +29,16 @@ without replacing its selector. Reconcile that deviation before regenerating
 the core creation helper, and run `tests/runtime_tooling/`.
 
 The park/handoff blockers are now repaired in the governed shared-source
-candidate, openBenches PRs #310 through #313. This root copies the three corrected
+candidate, openBenches PRs #310, #311, #312, #313 and #315. This root copies the three corrected
 helpers and focused regression suite from the exact proposed source commit
 recorded in [shared park provenance](shared-park-source.md). The source PRs
 remain unmerged at this snapshot. The shared resume correction supersedes
 the earlier local failed-fetch fix and verifies origin before accepting an
 existing worktree. The local core-creation deviation remains. This candidate
-also retries pending manifest publication when feature content is unchanged
-and refuses exhausted push attempts. It does not claim fleet installation.
+also retries pending manifest publication when feature content is unchanged,
+refuses exhausted push attempts, and refreshes the receiving workspace under
+its mutex before reading a manifest. Refresh preserves dirty work and aborts
+conflicts; dry-run remains a cached preview. It does not claim fleet installation.
 
 The generated overlay-content marker is deliberately omitted because this
 corrected copy is no longer byte-identical to its baseline. The baseline
