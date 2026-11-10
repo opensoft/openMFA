@@ -1,11 +1,11 @@
 # Shared park source provenance
 
-Snapshot: proposed shared-source repair, 2026-11-10. These source PRs are
-unmerged at this update; this record does not claim shared-main landing or
-fleet installation.
+Snapshot: governed shared-source repair, 2026-11-10. This record binds exact
+source bytes; the source PRs carry the landing evidence. Source provenance
+and fleet installation remain separate acceptance gates.
 
 - Repository: [opensoft/openBenches](https://github.com/opensoft/openBenches)
-- Source commit: [d74a1a66b08f1f3987a03172e91cc0c0298ecd1d](https://github.com/opensoft/openBenches/commit/d74a1a66b08f1f3987a03172e91cc0c0298ecd1d)
+- Source commit: [46a867b62322939beae62eb1f21d27fcf6ce1720](https://github.com/opensoft/openBenches/commit/46a867b62322939beae62eb1f21d27fcf6ce1720)
 - Governed change: `openspec/changes/fix-park-handoff-integrity/`
 - Sole implementation feature: `specs/177-park-handoff-safety/`
 - SET-01: [PR #310](https://github.com/opensoft/openBenches/pull/310), all-leg repository/branch preflight.
@@ -22,9 +22,9 @@ are relative to this assembly root; source paths are relative to openBenches.
 | --- | --- | --- |
 | `.specify/extensions/git/scripts/bash/park.sh` | `devBenches/base-image/files/speckit-worktree/templates/specify/extensions/git/scripts/bash/park.sh` | `1ff1e60fc0a4177f69738c3354d571fe3e21d3e1e5d04f8ae7123d8d11d2eed9` |
 | `.specify/extensions/git/scripts/bash/resume.sh` | `devBenches/base-image/files/speckit-worktree/templates/specify/extensions/git/scripts/bash/resume.sh` | `94116417965ae9adbd9fbb6f819752754d316de4d950f6ab8a1046dd5100ae12` |
-| `.specify/extensions/git/scripts/bash/workspace-common.sh` | `devBenches/base-image/files/speckit-worktree/templates/specify/extensions/git/scripts/bash/workspace-common.sh` | `59b758a59b84d4891881dd42fb9db74f560b14347a00f76128fa97dfb3c6e410` |
-| `.specify/extensions/git/scripts/bash/git-common.sh` | `devBenches/base-image/files/speckit-worktree/templates/specify/extensions/git/scripts/bash/git-common.sh` | `3fffb4a1b3bc5d1216afe90a3d811cbb7ea3162cf1115a601475653d4c0deabc` |
-| `tests/runtime_tooling/test_park_handoff.py` | `devBenches/devcontainer.test/test-speckit-park-handoff.py` | `979a740681ca2c73957bfdfa52d98366b4bc21b0bb529b2b18b234346695df5c` |
+| `.specify/extensions/git/scripts/bash/workspace-common.sh` | `devBenches/base-image/files/speckit-worktree/templates/specify/extensions/git/scripts/bash/workspace-common.sh` | `a8f8ad9048af8ca2c33ff4142df08ae0a6a5361dd17b28331782cff661719617` |
+| `.specify/extensions/git/scripts/bash/git-common.sh` | `devBenches/base-image/files/speckit-worktree/templates/specify/extensions/git/scripts/bash/git-common.sh` | `bbf3bf4f18fa833ec4cfd2e5c07fdd7d5275e3e5f9dbe8b67072fae9db0bce16` |
+| `tests/runtime_tooling/test_park_handoff.py` | `devBenches/devcontainer.test/test-speckit-park-handoff.py` | `279954aec08dc40b4d001dd90354e4326e7c7c5ae87744b000f430c1765b4a26` |
 
 All four shared helpers compared exactly against the source candidate.
 The core-creation correction and core selector publication remain declared

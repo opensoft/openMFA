@@ -32,13 +32,16 @@ Security re-review passed all five original-danger cases; QA also verified
 preflight before either leg resets when the selector directory or temporary
 path is unsafe.
 
-The current suite has **37** cases: ten consumer-specific cases plus 27
+The current suite has **38** cases: ten consumer-specific cases plus 28
 shared handoff cases, including a real injected peer-push retry, three changed
 or unverifiable-origin refusals, unchanged-origin repeat resume and pending
 publication retry/refusal, and five receiving-workspace refresh cases.
 It now also covers manifest temporary/directory protection, selector
 symlink/hardlink publication, safe workspace-root aliases and pre-reset refusal.
-All 37 current cases passed locally in 63.84 seconds. All consumer
+The 37-case snapshot passed locally in 63.84 seconds. A final check reproduced
+private metadata widening from 0600 to 0644 during replacement; both publishers
+now preserve existing permission bits, and the new manifest/selector case passes.
+All 38 cases passed locally in 78.02 seconds. All consumer
 Bash files passed syntax validation, the four shared dependencies and fixture
 copy compared exactly, and `make validate` passed with both leg pins and all 11
 shape digests unchanged.

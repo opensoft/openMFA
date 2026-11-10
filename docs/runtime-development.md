@@ -35,8 +35,8 @@ declared bench, as does existing worktree-state publication.
 The park/handoff blockers are now repaired in the governed shared-source
 candidate, openBenches PRs #310, #311, #312, #313, #315 and #319. This root copies the four corrected
 helpers and focused regression suite from the exact proposed source commit
-recorded in [shared park provenance](shared-park-source.md). The source PRs
-remain unmerged at this snapshot. The shared resume correction supersedes
+recorded in [shared park provenance](shared-park-source.md). Source landing
+evidence is recorded on those PRs. The shared resume correction supersedes
 the earlier local failed-fetch fix and verifies origin before accepting an
 existing worktree. The declared local core deviations remain. This candidate
 also retries pending manifest publication when feature content is unchanged,
@@ -44,7 +44,8 @@ refuses exhausted push attempts, and refreshes the receiving workspace under
 its mutex before reading a manifest. Refresh preserves dirty work and aborts
 conflicts; dry-run remains a cached preview. Manifest and selector publication
 reject unsafe symlinks and occupied temporary paths without touching unrelated
-targets. It does not claim fleet installation.
+targets, and preserve existing destination permission bits on replacement.
+It does not claim fleet installation.
 
 The generated overlay-content marker is deliberately omitted because this
 corrected copy is no longer byte-identical to its baseline. The baseline
