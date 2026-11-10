@@ -1,0 +1,19 @@
+# Git Branching Workflow Extension Configuration
+# Managed by setup-openspeckit. Rerun after Speckit upgrades.
+
+# Branch numbering strategy: "sequential" (001, 002, ...) or "timestamp" (YYYYMMDD-HHMMSS)
+branch_numbering: sequential
+
+# Feature checkout strategy: "branch" keeps work in the current checkout,
+# "worktree" creates a sibling worktree rooted from base_branch.
+checkout_mode: worktree
+
+# Base branch for new worktree-backed features. Ignored in branch mode.
+base_branch: main
+
+# Parent directory for linked worktrees. Relative paths resolve from the repo root.
+worktree_root: worktrees
+
+# Auto-commit before/after core commands. Disabled by default.
+auto_commit:
+  default: false

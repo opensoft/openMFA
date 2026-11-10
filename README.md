@@ -1,5 +1,8 @@
 # openMFA
 
+For candidate runtime feature work, see [runtime development](docs/runtime-development.md).
+The first core and its contracts remain under review in the paired leg PRs.
+
 The ASSEMBLY ROOT of the `openmfa` project — the repository you clone.
 It holds no product code of its own: it holds the manifest that says what this
 project IS, the two legs as submodules, and the pins that say which commit of

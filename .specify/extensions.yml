@@ -1,0 +1,13 @@
+installed:
+- git
+settings:
+  auto_execute_hooks: true
+hooks:
+  before_specify:
+    - extension: git
+      command: speckit.git.feature
+      enabled: true
+      optional: false
+      prompt: Execute speckit.git.feature?
+      description: Create feature checkout before specification
+      condition: null
