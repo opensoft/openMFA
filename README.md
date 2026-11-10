@@ -165,3 +165,19 @@ Everything under `scripts/`, plus `contracts/repository-naming.yaml` and
 `contracts/shape-pin.yaml`. Edit them upstream, not here — a local edit is
 reported as drift. `AGENTS.md` and `CLAUDE.md` have no row and are this
 project's own.
+
+## Product design
+
+openMFA is a proposed neutral authentication-verification service. It composes
+with openWallet possession proofs, an OIDC broker, and domain-owned permission
+and approval. The current repository contains the project scaffold and design
+capture. Runtime services and APIs await governed implementation.
+
+Start with the [service design](spec/ideation/brainstorm/wallet-mfa-overview.md).
+The [cross-factory integration](https://github.com/opensoft/openxFactory/blob/docs/wallet-mfa-design/ideation/brainstorm/wallet-mfa-overview.md)
+and [codeXfactory pilot](https://github.com/codeXfactory/codexFactory/blob/docs/wallet-mfa-design/ideation/brainstorm/wallet-mfa-overview.md)
+describe shared boundaries and the first independent-human-approval use case.
+
+## License
+
+The assembly root and both legs use [Apache License 2.0](LICENSE).
