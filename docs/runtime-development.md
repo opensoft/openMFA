@@ -23,13 +23,20 @@ OpenSpec/Speckit protocol under `$HOME/.agents/` remains authoritative.
 The current PowerShell git extension is not Triad-aware; invoke its bash
 counterpart in the declared bench.
 
-Two project-local corrections are declared against that generated baseline:
+Two earlier project-local corrections are declared against that generated baseline:
 core specification creation resolves the selected paired feature directory
 without replacing its selector, and resume refuses a failed origin fetch
 instead of trusting a stale cached tracking ref. The shared distributions
 have not been modified by this PR. Their future corrections/resync remain
 upstream work; do not regenerate these two files without reconciling the
 local fixes and running `tests/runtime_tooling/`.
+
+The park/handoff blockers are now repaired in the governed shared-source
+candidate, openBenches PRs #310 and #311. This root copies the two corrected
+helpers and focused regression suite from the exact proposed source commit
+recorded in [shared park provenance](shared-park-source.md). The source PRs
+remain unmerged at this snapshot. These shared park fixes do not replace the
+earlier local core-creation/resume deviations or claim fleet installation.
 
 The generated overlay-content marker is deliberately omitted because this
 corrected copy is no longer byte-identical to its baseline. The baseline

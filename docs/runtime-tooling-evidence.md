@@ -1,5 +1,19 @@
 # Tooling regression evidence — 2026-11-10
 
+## Shared park/handoff repair update
+
+The two subsequent park blockers are fixed in shared-source PRs #310/#311
+under `fix-park-handoff-integrity`, with separate constitution-compliant
+task sets. The consumer copies exact source bytes recorded in
+[shared-park-source.md](shared-park-source.md). All **14** current consumer
+tests passed locally: seven prior tooling cases plus seven shared handoff
+cases, including a real injected peer-push retry. Full park retains its
+existing gone-feature reconciliation. The real operator workspace was not
+used. Consumer CI and a fresh exact-head Codex request accompany this update;
+source/consumer PR results and upstream landing are distinct gates.
+
+## Earlier creation/resume correction evidence
+
 Status: local source validation; draft PR review pending
 
 Codex review of assembly PR #2 at 010067b8f2b3142b053dd02cccfd21ecc0e15edb
