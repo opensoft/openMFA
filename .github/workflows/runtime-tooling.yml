@@ -1,0 +1,17 @@
+name: runtime-tooling
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  runtime-tooling:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --only-binary :all: pytest==9.1.1
+      - run: python -m pytest tests/runtime_tooling -q

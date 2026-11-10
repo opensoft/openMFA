@@ -544,8 +544,15 @@ while [ "$selection" -lt "${#SELECTED_INDEXES[@]}" ]; do
 
         # RR2 — the branch is gone from the remote.
         if [ "$DRY_RUN" != true ]; then
-            GIT_TERMINAL_PROMPT=0 git -C "$leg_repo" fetch -q origin \
-                "+refs/heads/$branch:refs/remotes/origin/$branch" >/dev/null 2>&1 || true
+            if ! GIT_TERMINAL_PROMPT=0 git -C "$leg_repo" fetch -q origin \
+                "+refs/heads/$branch:refs/remotes/origin/$branch" >/dev/null 2>&1; then
+                >&2 echo "Error: $branch ($role leg) could not be verified on origin; that feature was NOT recreated."
+                >&2 echo "Check origin access and whether the branch still exists; cached tracking refs are insufficient."
+                record_refusal "$branch" "origin branch could not be verified" \
+                    "check origin access and refs/heads/$branch, then re-run make resume"
+                refused=true
+                break
+            fi
         fi
         remote_tip="$(git -C "$leg_repo" rev-parse --verify --quiet "refs/remotes/origin/$branch" 2>/dev/null || true)"
         if [ -z "$remote_tip" ]; then

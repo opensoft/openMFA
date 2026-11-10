@@ -128,8 +128,13 @@ REPO_ROOT=$(get_repo_root) || exit 1
 cd "$REPO_ROOT"
 
 SPECS_DIR="$REPO_ROOT/specs"
-if [ "$DRY_RUN" != true ]; then
-    mkdir -p "$SPECS_DIR"
+SELECTED_FEATURE_DIR=""
+SELECTED_FEATURE_BRANCH=""
+if [ -n "${SPECIFY_FEATURE_DIRECTORY:-}" ] || [ -f "$REPO_ROOT/.specify/feature.json" ]; then
+    selected_paths=$(get_feature_paths --no-persist) || exit 1
+    eval "$selected_paths"
+    SELECTED_FEATURE_DIR="$FEATURE_DIR"
+    SELECTED_FEATURE_BRANCH="$CURRENT_BRANCH"
 fi
 
 # Function to generate branch name with stop word filtering and length filtering
@@ -236,6 +241,18 @@ if [ ${#BRANCH_NAME} -gt $MAX_BRANCH_LENGTH ]; then
 fi
 
 FEATURE_DIR="$SPECS_DIR/$BRANCH_NAME"
+if [ -n "$SELECTED_FEATURE_DIR" ]; then
+    # The git hook already created the feature. Populate its selected spec
+    # checkout rather than creating another feature under the assembly root.
+    FEATURE_DIR="$SELECTED_FEATURE_DIR"
+    BRANCH_NAME="$SELECTED_FEATURE_BRANCH"
+    if [[ "$BRANCH_NAME" =~ ^([0-9]{8}-[0-9]{6})- ]]; then
+        FEATURE_NUM="${BASH_REMATCH[1]}"
+    else
+        FEATURE_NUM="${BRANCH_NAME%%-*}"
+    fi
+    ALLOW_EXISTING=true
+fi
 SPEC_FILE="$FEATURE_DIR/spec.md"
 
 if [ "$DRY_RUN" != true ]; then

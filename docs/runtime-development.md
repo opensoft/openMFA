@@ -15,13 +15,27 @@ The source is the workstation's canonical setup-openspeckit distribution,
 not product runtime code. The marker records overlay content; it is not a
 product release, package signature or dependency acceptance.
 
-The committed subset contains portable core scripts/templates, the git
+The committed subset starts from portable core scripts/templates, the git
 extension/config and shell helpers. Host-local feature selectors, integration
 receipt manifests, cache state and the unfilled constitution are excluded.
 There is no adopted product constitution in this bootstrap. The shared
 OpenSpec/Speckit protocol under `$HOME/.agents/` remains authoritative.
 The current PowerShell git extension is not Triad-aware; invoke its bash
 counterpart in the declared bench.
+
+Two project-local corrections are declared against that generated baseline:
+core specification creation resolves the selected paired feature directory
+without replacing its selector, and resume refuses a failed origin fetch
+instead of trusting a stale cached tracking ref. The shared distributions
+have not been modified by this PR. Their future corrections/resync remain
+upstream work; do not regenerate these two files without reconciling the
+local fixes and running `tests/runtime_tooling/`.
+
+The generated overlay-content marker is deliberately omitted because this
+corrected copy is no longer byte-identical to its baseline. The baseline
+content hash above is provenance only; no digest is changed to hide drift.
+These files are project tooling, not shape-pinned copies. All shape-pinned
+files and their recorded digests remain unchanged.
 
 From the assembly root, with both pinned legs present:
 
