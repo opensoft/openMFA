@@ -113,6 +113,36 @@ def test_unselected_single_repository_still_creates_a_new_feature(tmp_path,has_h
         assert (previous/"spec.md").read_text()=="preserve earlier spec"
 
 
+@pytest.mark.parametrize("location",["selector","temporary","directory"])
+def test_core_selector_publication_preserves_symlink_targets(tmp_path,location):
+    repo=init(tmp_path/"fixture")
+    copy_scripts(repo,CORE,["common.sh"])
+    outside=tmp_path/"outside-selector.txt"
+    outside.write_text("unrelated work\n")
+    selector=repo/".specify/feature.json"
+    if location=="directory":
+        external=tmp_path/"external-specify"
+        (repo/".specify").rename(external)
+        (repo/".specify").symlink_to(external,target_is_directory=True)
+        outside=external/"feature.json"
+        outside.write_text("unrelated work\n")
+    elif location=="selector":
+        selector.symlink_to(outside)
+    else:
+        selector.with_name(".feature.json.tmp").symlink_to(outside)
+    command='source "$1"; _persist_feature_json "$2" specs/001-feature'
+    result=run(repo,"bash","-c",command,"fixture",str(repo/CORE/"common.sh"),str(repo),check=False)
+    assert result.returncode!=0,result.stdout+result.stderr
+    assert outside.read_text()=="unrelated work\n"
+    if location=="selector":
+        assert selector.is_symlink()
+    elif location=="temporary":
+        assert selector.with_name(".feature.json.tmp").is_symlink()
+        assert not selector.exists()
+    else:
+        assert (repo/".specify").is_symlink()
+
+
 @pytest.mark.parametrize("remote_state",["deleted","unavailable","present"])
 def test_resume_checks_remote_before_recreating_from_a_cached_ref(tmp_path,remote_state):
     repo=init(tmp_path/"fixture")

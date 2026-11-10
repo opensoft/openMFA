@@ -23,22 +23,28 @@ OpenSpec/Speckit protocol under `$HOME/.agents/` remains authoritative.
 The current PowerShell git extension is not Triad-aware; invoke its bash
 counterpart in the declared bench.
 
-One project-local correction remains against that generated baseline:
+Two project-local corrections remain against that generated baseline:
 core specification creation resolves the selected paired feature directory
-without replacing its selector. Reconcile that deviation before regenerating
-the core creation helper, and run `tests/runtime_tooling/`.
+without replacing its selector, and the core common helper publishes the
+selector without following symlink destinations or truncating unrelated work.
+Its publisher body matches the shared git helper. Reconcile both deviations
+before regenerating core helpers, and run `tests/runtime_tooling/`.
+Safe Bash publication uses Python 3 and POSIX directory descriptors in the
+declared bench, as does existing worktree-state publication.
 
 The park/handoff blockers are now repaired in the governed shared-source
-candidate, openBenches PRs #310, #311, #312, #313 and #315. This root copies the three corrected
+candidate, openBenches PRs #310, #311, #312, #313, #315 and #319. This root copies the four corrected
 helpers and focused regression suite from the exact proposed source commit
 recorded in [shared park provenance](shared-park-source.md). The source PRs
 remain unmerged at this snapshot. The shared resume correction supersedes
 the earlier local failed-fetch fix and verifies origin before accepting an
-existing worktree. The local core-creation deviation remains. This candidate
+existing worktree. The declared local core deviations remain. This candidate
 also retries pending manifest publication when feature content is unchanged,
 refuses exhausted push attempts, and refreshes the receiving workspace under
 its mutex before reading a manifest. Refresh preserves dirty work and aborts
-conflicts; dry-run remains a cached preview. It does not claim fleet installation.
+conflicts; dry-run remains a cached preview. Manifest and selector publication
+reject unsafe symlinks and occupied temporary paths without touching unrelated
+targets. It does not claim fleet installation.
 
 The generated overlay-content marker is deliberately omitted because this
 corrected copy is no longer byte-identical to its baseline. The baseline

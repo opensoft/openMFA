@@ -21,12 +21,24 @@ manifest loading and safely refuses dirty, conflicting or unavailable
 refreshes. Four checks failed before correction; the unchanged dry-run
 control passed.
 
-The current suite has **25** cases: seven prior tooling cases plus eighteen
+## Local review and publication safety
+
+Brett Heap authorized local review in place of the quota-blocked GitHub
+reviewer. The ten-role local panel reviewed source #315 and this consumer.
+It reproduced manifest temporary/directory symlink overwrites and direct
+selector truncation. Shared PR #319 repairs those publication paths, while
+the core helper carries the same safe publisher as an explicit local deviation.
+Security re-review passed all five original-danger cases; QA also verified
+preflight before either leg resets when the selector directory or temporary
+path is unsafe.
+
+The current suite has **37** cases: ten consumer-specific cases plus 27
 shared handoff cases, including a real injected peer-push retry, three changed
 or unverifiable-origin refusals, unchanged-origin repeat resume and pending
 publication retry/refusal, and five receiving-workspace refresh cases.
-The earlier 20-case snapshot passed locally and in CI. All 25 current cases
-passed locally in 40.33 seconds. All consumer
+It now also covers manifest temporary/directory protection, selector
+symlink/hardlink publication, safe workspace-root aliases and pre-reset refusal.
+All 37 current cases passed locally in 63.84 seconds. All consumer
 Bash files passed syntax validation, the four shared dependencies and fixture
 copy compared exactly, and `make validate` passed with both leg pins and all 11
 shape digests unchanged.
