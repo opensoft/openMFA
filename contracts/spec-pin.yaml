@@ -21,7 +21,7 @@ leg_role: spec
 source_repository: opensoft/openMFA-spec
 submodule_path: "spec"
 
-commit: "de4a58e6d4ae77bdf4c390280faac3785a0f4aa3"
+commit: "5e20a6b862b506de929a9793b53d0f4578adeb66"
 revision_kind: commit
 
 digest_algorithm: sha256
@@ -36,7 +36,7 @@ digest_algorithm: sha256
 # <oid>`, so a leg's own pin moving is drift too.
 digest_definition: sorted-ls-tree-r-v1
 digests:
-  tree_sha256: "b6413f92033f9d7729a2629177dbadb60a7ebf5d80abda9232f1b25d953454b2"
+  tree_sha256: "a860129375ce14e244cfa37c87175d43f5881c9723c93dcb46d6efbd2b9afed2"
 
 verify_pin: scripts/validate-pins.py
 resync_runbook: "README.md#the-lockstep-invariant"
